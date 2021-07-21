@@ -20,16 +20,18 @@ class ExpenseListFilters extends React.Component {
 
     render(){
         return (
-            <div className="content-container">
-            <div className="input-group">
-                <div className="input-group__item">
-                    <input type="text" className="text-input" placeholder="search expenses" value={this.props.filters.text} onChange={(e) => {
-                        props.dispatch(setTextFilter(e.target.value));
-                    
-                    }}/>
+            <div className="container">
+            <div className="row">
+                <div className="col-sm-2">
+                    <div className="input-group mb-3">
+                        <input type="text" className="form-control" placeholder="search addresses" value={this.props.filters.text} onChange={(e) => {
+                            props.dispatch(setTextFilter(e.target.value));
+                        
+                        }}/>
                 </div>
-                <div className="input-group__item">
-                    <select className="select" value={this.props.filters.sortBy}
+             </div>
+             <div className="col-sm-2">
+                    <select className="form-select" value={this.props.filters.sortBy}
                         onChange={(e) =>{
                         if(e.target.value == "date"){
                             this.props.dispatch(sortByDate());
@@ -39,10 +41,11 @@ class ExpenseListFilters extends React.Component {
                         }
                     }}>
                         <option value="date">Date</option>
-                        <option value="amount">Amount</option>
+                        <option value="address">address</option>
                     </select>
-                </div>
-                <div className="input-group__item">
+            </div>
+            <div className="col-sm-6">
+                <div className="input-group mb-6">
                     <DateRangePicker
                     startDate={this.props.filters.startDate}
                     endDate={this.props.filters.endDate}
@@ -55,10 +58,8 @@ class ExpenseListFilters extends React.Component {
                     />
                 </div>
             </div>
-               
-                
-               
             </div>
+        </div>
         );
     }
     

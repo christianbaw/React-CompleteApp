@@ -3,7 +3,7 @@
 }
 
 html {
-  font-size: 62.5%;
+  font-size: 85.5%;
 }
 
 body {
@@ -23,4 +23,12 @@ button:disabled{
 
 .is-active{
   font-weight: bold;
+}
+
+.table {
+  --bs-table-active-bg: rgb(255 255 255 / 0%) !important;
+}
+
+.big-font {
+  font-size: $l-size;
 }

@@ -8,8 +8,8 @@ export default class ExpenseForm extends React.Component {
 
     this.state = {
       description: props.expense ? props.expense.description : '',
+      unmineableaddress: props.expense ? props.expense.unmineableaddress : '',
       note: props.expense ? props.expense.note : '',
-      amount: props.expense ? (props.expense.amount / 100).toString() : '',
       createdAt: props.expense ? moment(props.expense.createdAt) : moment(),
       calendarFocused: false,
       error: ''
@@ -19,17 +19,23 @@ export default class ExpenseForm extends React.Component {
     const description = e.target.value;
     this.setState(() => ({ description }));
   };
+
+  onUnmineableAddressChange = (e) => {
+    const unmineableaddress = e.target.value;
+    this.setState(() => ({ unmineableaddress }));
+  };
+
   onNoteChange = (e) => {
     const note = e.target.value;
     this.setState(() => ({ note }));
   };
-  onAmountChange = (e) => {
-    const amount = e.target.value;
+  // onAmountChange = (e) => {
+  //   const amount = e.target.value;
 
-    if (!amount || amount.match(/^\d{1,}(\.\d{0,2})?$/)) {
-      this.setState(() => ({ amount }));
-    }
-  };
+  //   if (!amount || amount.match(/^\d{1,}(\.\d{0,2})?$/)) {
+  //     this.setState(() => ({ amount }));
+  //   }
+  // };
   onDateChange = (createdAt) => {
     if (createdAt) {
       this.setState(() => ({ createdAt }));
@@ -41,13 +47,14 @@ export default class ExpenseForm extends React.Component {
   onSubmit = (e) => {
     e.preventDefault();
 
-    if (!this.state.description || !this.state.amount) {
-      this.setState(() => ({ error: 'Please provide description and amount.' }));
+    if (!this.state.description || !this.state.unmineableaddress) {
+      this.setState(() => ({ error: 'Please provide description and unmineable address.' }));
     } else {
       this.setState(() => ({ error: '' }));
+      
       this.props.onSubmit({
         description: this.state.description,
-        amount: parseFloat(this.state.amount, 10) * 100,
+        unmineableaddress: this.state.unmineableaddress,
         createdAt: this.state.createdAt.valueOf(),
         note: this.state.note
       });
@@ -66,12 +73,13 @@ export default class ExpenseForm extends React.Component {
           onChange={this.onDescriptionChange}
         />
         <input
-          type="text"
-          placeholder="Amount"
-          className="text-input"
-          value={this.state.amount}
-          onChange={this.onAmountChange}
-        />
+        type="text"
+        placeholder="Unmineable Address"
+        autoFocus
+        className="text-input"
+        value={this.state.unmineableaddress}
+        onChange={this.onUnmineableAddressChange}
+      />
         <SingleDatePicker
           date={this.state.createdAt}
           onDateChange={this.onDateChange}
@@ -81,7 +89,7 @@ export default class ExpenseForm extends React.Component {
           isOutsideRange={() => false}
         />
         <textarea
-          placeholder="Add a note for your expense (optional)"
+          placeholder="Add a note for your unmineable address (optional)"
           className="textarea"
           value={this.state.note}
           onChange={this.onNoteChange}

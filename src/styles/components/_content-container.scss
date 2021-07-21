@@ -1,5 +1,12 @@
 .content-container {
     margin: 0 auto;
+    padding: 0 $l-size;
+    align-items: center;
+    max-width: 120rem;
+}
+
+.content-container__body{
+    margin: 0 auto;
     padding: 0 $m-size;
-    max-width: 80rem;
+    max-width: 125rem;
 }
