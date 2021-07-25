@@ -46,7 +46,13 @@ export default class UnmineableDashboardForm extends React.Component {
   };
 
 
-
+  showModal(){
+    return (
+      <div class="modal-dialog modal-dialog-centered">
+  ...
+</div>
+    )
+  }
 
   
   onDescriptionChange = (e) => {
@@ -122,7 +128,7 @@ export default class UnmineableDashboardForm extends React.Component {
             <span className="visually-hidden">Loading...</span>
           </div>
           :
-          <div className="col-sm-6">
+          <div className="col-sm-8">
             <table className="table table-striped">
               <thead className="">
                 <tr className="table-active">
@@ -130,17 +136,13 @@ export default class UnmineableDashboardForm extends React.Component {
                   <th>Date paid</th>
                   <th>Payment status</th>
                 </tr>
-                <tr className="table-active">
-                  <th>{this.state.paymentsData[0].amount }</th>
-                  <th>{moment(this.state.paymentsData[0].timestamp).format('MMMM Do, YYYY')}</th>
-                  <th>{this.state.paymentsData[0].status == 'success' ? <button className="btn btn-success">PAID</button> : <button className="btn btn-danger">NOT PAID</button> }</th>
-                </tr>
-                <tr className="table-active">
-                  <th>{this.state.paymentsData[1].amount }</th>
-                  <th>{moment(this.state.paymentsData[1].timestamp).format('MMMM Do, YYYY')}</th>
-                  <th>{this.state.paymentsData[1].status == 'success' ? <button className="btn btn-success">PAID</button> : <button className="btn btn-danger">NOT PAID</button> }</th>
-                </tr>
-
+                {this.state.paymentsData.map((paymentsdata) =>
+                  <tr key={paymentsdata.tx}>
+                  <th>{paymentsdata.amount}</th>
+                  <th>{moment(paymentsdata.timestamp).format('MMMM Do, YYYY')}</th>
+                  <th>{paymentsdata.status == 'success' ? <button onClick={this.showModal} className="btn btn-success">PAID</button> : <button className="btn btn-danger">NOT PAID</button> }</th>
+                  </tr>
+                  )}
             </thead>
           </table>
           </div>
